@@ -1,0 +1,20 @@
+<div
+  class="mcmain-puzzle"
+  [ngStyle]="{
+    'grid-template-columns': 'repeat(' + gridSize + ', ' + tileSize + 'px)',
+    'grid-template-rows': 'repeat(' + gridSize + ', ' + tileSize + 'px)'
+  }"
+>
+  @for (tile of tiles; track tile; let index = $index) {
+  <div
+    class="mcmain-puzzle__tile"
+    [ngClass]="{ 'mcmain-puzzle__tile-empty': tile.isEmpty }"
+    [ngStyle]="{
+      'background-position': tile.bgPosition,
+      'background-size': gridSize * tileSize + 'px ' + gridSize * tileSize + 'px',
+    }"
+    (click)="onTileClick(tile)"
+  ></div>
+  }
+</div>
+<button (click)="shuffleTiles()">New Game</button>
