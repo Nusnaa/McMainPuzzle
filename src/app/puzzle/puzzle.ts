@@ -1,17 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { Position, Tile } from './model/puzzle.model';
+import { Component, OnInit, signal } from '@angular/core';
+import { Position, ScreenProperties, Tile } from './model/puzzle.model';
+import { Settings } from './settings/settings';
+import { ButtonDirective } from '../shared/directives/button';
 
 @Component({
   selector: 'mcmain-puzzle',
-  imports: [CommonModule],
+  imports: [CommonModule, Settings, ButtonDirective],
   templateUrl: './puzzle.html',
   styleUrl: './puzzle.scss',
 })
 export class Puzzle implements OnInit {
-  gridSize = 4;
-  tileSize = 100; // in pixels
+  gridSize = signal(4);
+  tileSize = signal(85);
   tiles: Tile[] = [];
+  screenProperties!: ScreenProperties;
 
   ngOnInit() {
     this.updateTiles();
@@ -19,16 +22,37 @@ export class Puzzle implements OnInit {
 
   updateTiles() {
     this.tiles = [];
-    const totalTiles = this.gridSize * this.gridSize;
+    const totalTiles = this.gridSize() * this.gridSize();
     for (let index = 0; index < totalTiles; index++) {
-      const row = Math.floor(index / this.gridSize);
-      const col = index % this.gridSize;
+      const row = Math.floor(index / this.gridSize());
+      const col = index % this.gridSize();
       this.tiles.push({
         position: { col, row },
-        bgPosition: `-${col * this.tileSize}px -${row * this.tileSize}px`,
+        backgroundPosition: `-${col * this.tileSize()}px -${row * this.tileSize()}px`,
         isEmpty: index === totalTiles - 1,
       });
     }
+    this.updateScreenProperties();
+  }
+
+  updateScreenProperties() {
+    this.screenProperties = {
+      PuzzleStyle: {
+        'grid-template-columns': 'repeat(' + this.gridSize() + ', ' + this.tileSize() + 'px)',
+        'grid-template-rows': 'repeat(' + this.gridSize() + ', ' + this.tileSize() + 'px)',
+      },
+      TileStyle: {
+        'background-size':
+          this.gridSize() * this.tileSize() + 'px ' + this.gridSize() * this.tileSize() + 'px',
+      },
+    };
+  }
+
+  getTileStyle(tile: Tile): { [key: string]: string } {
+    return {
+      ...this.screenProperties.TileStyle,
+      'background-position': tile.backgroundPosition,
+    };
   }
 
   swapTiles(currentIndex: number, newIndex: number) {

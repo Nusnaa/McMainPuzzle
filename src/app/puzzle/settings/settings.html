@@ -1,0 +1,55 @@
+<form class="mcmain-puzzle-settings">
+  <div>
+    <div class="mcmain-puzzle-settings__group">
+      <label class="mcmain-puzzle-settings__label" for="gridSize Input">Grid size: </label>
+      <input
+        #gridSizeInput="ngModel"
+        required
+        name="gridSize Input"
+        type="number"
+        min="3"
+        max="10"
+        class="mcmain-puzzle-settings__input"
+        [(ngModel)]="gridSize"
+      />
+      @if (gridSizeInput.invalid) {
+      <div class="mcmain-puzzle-settings__warning">
+        @if (gridSizeInput.hasError('min') || gridSizeInput.hasError('max') ||
+        gridSizeInput.hasError('required')) {
+        <div>Grid size must be between 3 and 10.</div>
+        }
+      </div>
+      }
+    </div>
+    <div class="mcmain-puzzle-settings__group">
+      <label class="mcmain-puzzle-settings__label" for="tileSizeInput"
+        >Tile size (in pixels):
+      </label>
+      <input
+        #tileSizeInput="ngModel"
+        required
+        name="tileSizeInput"
+        type="number"
+        min="50"
+        max="200"
+        class="mcmain-puzzle-settings__input"
+        [(ngModel)]="tileSize"
+      />
+      @if (tileSizeInput.invalid) {
+      <div class="mcmain-puzzle-settings__warning">
+        @if (tileSizeInput.hasError('min') || tileSizeInput.hasError('max') ||
+        tileSizeInput.hasError('required')) {
+        <div>Tile size must be between 50 and 200.</div>
+        }
+      </div>
+      }
+    </div>
+  </div>
+  <button
+    mcMainButton
+    [disabled]="tileSizeInput.invalid || gridSizeInput.invalid"
+    (click)="onSettingsChange()"
+  >
+    Save settings
+  </button>
+</form>

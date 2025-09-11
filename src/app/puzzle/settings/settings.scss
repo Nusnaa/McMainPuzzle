@@ -1,0 +1,31 @@
+.mcmain-puzzle-settings {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 10px;
+
+    &__group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 5px;
+    }
+
+    &__label {
+      font: 14px Arial;
+    }
+
+    &__input {
+      width: fit-content;
+      padding: 12px;
+      margin: 5px;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    &__warning {
+        color: red;
+        font: 14px Arial;
+    }
+}
