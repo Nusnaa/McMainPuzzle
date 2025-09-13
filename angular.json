@@ -39,6 +39,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "/McMainPuzzle/",
               "budgets": [
                 {
                   "type": "initial",
