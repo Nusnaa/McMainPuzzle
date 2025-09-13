@@ -31,7 +31,11 @@
             "outputMode": "server",
             "ssr": {
               "entry": "src/server.ts"
-            }
+            },
+            "outputPath": "dist/McMainPuzzle",
+            "index": "src/index.html",
+
+            "baseHref": "/McMainPuzzle/"
           },
           "configurations": {
             "production": {
