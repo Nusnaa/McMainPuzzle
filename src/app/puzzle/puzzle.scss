@@ -9,7 +9,7 @@
     cursor: pointer;
 
     &-tile {
-      background-image: url("/McMainPuzzle/mcmain-logo.png");
+      background-image: url("/mcmain-logo.png");
       border: 1px solid #0e395d;
 
       &-empty {
@@ -18,7 +18,7 @@
     }
   }
 
-  &__settings {
+&__settings {
     display: flex;
   }
 }
