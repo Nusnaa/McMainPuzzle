@@ -25,5 +25,5 @@ ng serve OR npm start
 ### Go to URL
 
 ```bash
-http://localhost:4200/McMainPuzzle/
+http://localhost:4200
 ```
